@@ -410,6 +410,10 @@ class TaiwanZip {
 
   /// Return the corresponding zip code based on the name of district
   static String toZip(String district) {
+    // hint the format
+    if (district.length < 5) {
+      throw Exception('Use city prefix, e.g., 臺北市中正區');
+    }
     for (var entry in mapping.entries) {
       if (entry.value == district) {
         return entry.key;

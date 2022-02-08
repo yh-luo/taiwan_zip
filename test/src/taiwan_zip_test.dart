@@ -40,8 +40,15 @@ void main() {
       });
 
       test('throws when district is invalid', () {
+        var district = '測試縣無名鎮';
         expect(
-            () => TaiwanZip.toZip('測試縣無名鎮'), throwsA(TypeMatcher<Exception>()));
+            () => TaiwanZip.toZip(district), throwsA(TypeMatcher<Exception>()));
+      });
+
+      test('throws when the name is not complete', () {
+        var district = '中正區';
+        expect(
+            () => TaiwanZip.toZip(district), throwsA(TypeMatcher<Exception>()));
       });
     });
 
