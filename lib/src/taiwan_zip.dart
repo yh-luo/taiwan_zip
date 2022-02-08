@@ -408,6 +408,7 @@ class TaiwanZip {
     throw Exception('Unable to find district for $zipCode');
   }
 
+  /// Return the corresponding zip code based on the name of district
   static String toZip(String district) {
     for (var entry in mapping.entries) {
       if (entry.value == district) {
@@ -415,5 +416,21 @@ class TaiwanZip {
       }
     }
     throw Exception('Unable to find zip for $district');
+  }
+
+  /// Get possible districts based on a city
+  static List<String> getDistricts(String city) {
+    // hint the format
+    if (city.contains('台')) {
+      throw Exception('Use 臺 instead of 台');
+    }
+
+    var districts =
+        mapping.values.where((district) => district.contains(city)).toList();
+
+    if (districts.isEmpty) {
+      throw Exception('Unable to find districts for $city');
+    }
+    return districts;
   }
 }

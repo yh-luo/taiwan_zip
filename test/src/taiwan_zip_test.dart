@@ -44,5 +44,28 @@ void main() {
             () => TaiwanZip.toZip('測試縣無名鎮'), throwsA(TypeMatcher<Exception>()));
       });
     });
+
+    group('getDistricts', () {
+      test('works properly', () {
+        var city = '臺北市';
+        final actual = TaiwanZip.getDistricts(city);
+        expect(actual.length, 12);
+        for (var district in actual) {
+          expect(district.contains(city), true);
+        }
+      });
+
+      test('throws when the city is invalid', () {
+        var city = '臺北縣';
+        expect(() => TaiwanZip.getDistricts(city),
+            throwsA(TypeMatcher<Exception>()));
+      });
+
+      test('throws with hint when 台 is provided', () {
+        var city = '台北市';
+        expect(() => TaiwanZip.getDistricts(city),
+            throwsA(TypeMatcher<Exception>()));
+      });
+    });
   });
 }
