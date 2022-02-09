@@ -400,6 +400,13 @@ const Map<String, String> mapping = {
 /// [toDistrict] returns the district based on zip code
 /// [toZip] returns the zip code based on district name
 class TaiwanZip {
+  /// Get all the zip codes
+  List<String> get zipCodes => mapping.keys.toList();
+
+  /// Get all the cities
+  List<String> get cities =>
+      mapping.values.map((value) => value.substring(0, 3)).toSet().toList();
+
   /// Return the corresponding district based on zip code
   static String toDistrict(String zipCode) {
     if (mapping.containsKey(zipCode)) {
@@ -423,18 +430,27 @@ class TaiwanZip {
   }
 
   /// Get possible districts based on a city
-  static List<String> getDistricts(String city) {
+  static List<String> getDistricts(String city, {bool withCity = false}) {
+    List<String> districts;
     // hint the format
     if (city.contains('台')) {
       throw Exception('Use 臺 instead of 台');
     }
 
-    var districts =
-        mapping.values.where((district) => district.contains(city)).toList();
-
-    if (districts.isEmpty) {
+    var filteredDistricts =
+        mapping.values.where((value) => value.contains(city));
+    if (filteredDistricts.isEmpty) {
       throw Exception('Unable to find districts for $city');
     }
+
+    if (withCity) {
+      districts = filteredDistricts.toList();
+    } else {
+      districts = filteredDistricts
+          .map((value) => value.substring(3, value.length))
+          .toList();
+    }
+
     return districts;
   }
 }

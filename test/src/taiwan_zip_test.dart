@@ -14,8 +14,22 @@ void main() {
     '831': '高雄市大寮區',
   };
 
+  test('can be instantiated ', () {
+    expect(TaiwanZip(), isNotNull);
+  });
+
   test('mapping is correct', () {
     expect(mapping.length, 371);
+  });
+
+  test('get zipCodes', () {
+    final taiwanZip = TaiwanZip();
+    expect(taiwanZip.zipCodes, mapping.keys.toList());
+  });
+
+  test('get cities', () {
+    final taiwanZip = TaiwanZip();
+    expect(taiwanZip.cities.length, 24);
   });
 
   group('TaiwanZip', () {
@@ -56,6 +70,12 @@ void main() {
       test('works properly', () {
         var city = '臺北市';
         final actual = TaiwanZip.getDistricts(city);
+        expect(actual.length, 12);
+      });
+
+      test('works properly with city', () {
+        var city = '臺北市';
+        final actual = TaiwanZip.getDistricts(city, withCity: true);
         expect(actual.length, 12);
         for (var district in actual) {
           expect(district.contains(city), true);
