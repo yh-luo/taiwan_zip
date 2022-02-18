@@ -1,4 +1,4 @@
-[English]() | [正體中文]()
+[English](https://github.com/yh-luo/taiwan_zip/blob/main/README.md) | [正體中文](https://github.com/yh-luo/taiwan_zip/blob/main/README_zhTW.md)
 
 ![coverage][coverage_badge]
 
