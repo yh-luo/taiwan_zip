@@ -1,4 +1,4 @@
-/// The mapping rules updated in 2021/02
+/// The mapping rules updated in 2021/09
 const Map<String, String> mapping = {
   // 臺北市
   '100': '臺北市中正區',
