@@ -9,5 +9,8 @@ pubspec.lock
 # OSX
 .DS_Store
 
+# vs code
+.vscode/
+
 # Files generated during tests
 coverage/
