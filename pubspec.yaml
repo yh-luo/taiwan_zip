@@ -1,6 +1,6 @@
 name: taiwan_zip
 description: Map zip code to cities in Taiwan
-version: 0.2.0
+version: 0.3.0
 repository: https://github.com/yh-luo/taiwan_zip
 
 environment:
