@@ -69,7 +69,7 @@ const Map<String, String> mapping = {
   '269': '宜蘭縣冬山鄉',
   '270': '宜蘭縣蘇澳鎮',
   '272': '宜蘭縣南澳鄉',
-  '290': '釣魚臺釣魚臺',
+  '290': '宜蘭縣釣魚臺',
   // 新竹市
   '300N': '新竹市北區',
   '300E': '新竹市東區',
@@ -312,9 +312,8 @@ const Map<String, String> mapping = {
   '849': '高雄市那瑪夏區',
   '851': '高雄市茂林區',
   '852': '高雄市茄萣區',
-  // 南海島
-  '817': '南海島東沙群島',
-  '819': '南海島南沙群島',
+  '817': '高雄市東沙群島',
+  '819': '高雄市南沙群島',
   // 澎湖縣
   '880': '澎湖縣馬公市',
   '881': '澎湖縣西嶼鄉',
@@ -400,11 +399,16 @@ const Map<String, String> mapping = {
 /// [toDistrict] returns the district based on zip code
 /// [toZip] returns the zip code based on district name
 class TaiwanZip {
+  // constructor is disabled
+  TaiwanZip() {
+    throw UnimplementedError("You don't need an instance to use the functions");
+  }
+
   /// Get all the zip codes
-  List<String> get zipCodes => mapping.keys.toList();
+  static List<String> get zipCodes => mapping.keys.toList();
 
   /// Get all the cities
-  List<String> get cities =>
+  static List<String> get cities =>
       mapping.values.map((value) => value.substring(0, 3)).toSet().toList();
 
   /// Return the corresponding district based on zip code

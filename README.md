@@ -31,4 +31,4 @@ This package only supports three-digits zip codes, which are last updated in Oct
   print('Districts in $city include ${TaiwanZip.getDistricts(city)}');
 ```
 
-[coverage_badge]: coverage_badge.svg
+[coverage_badge]: https://github.com/yh-luo/taiwan_zip/blob/main/coverage_badge.svg

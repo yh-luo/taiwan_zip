@@ -14,8 +14,8 @@ void main() {
     '831': '高雄市大寮區',
   };
 
-  test('can be instantiated ', () {
-    expect(TaiwanZip(), isNotNull);
+  test('constructor is unavailable', () {
+    expect(() => TaiwanZip(), throwsA(TypeMatcher<UnimplementedError>()));
   });
 
   test('mapping is correct', () {
@@ -23,13 +23,11 @@ void main() {
   });
 
   test('get zipCodes', () {
-    final taiwanZip = TaiwanZip();
-    expect(taiwanZip.zipCodes, mapping.keys.toList());
+    expect(TaiwanZip.zipCodes, mapping.keys.toList());
   });
 
   test('get cities', () {
-    final taiwanZip = TaiwanZip();
-    expect(taiwanZip.cities.length, 24);
+    expect(TaiwanZip.cities.length, 22);
   });
 
   group('TaiwanZip', () {
