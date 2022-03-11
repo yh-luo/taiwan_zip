@@ -1,3 +1,5 @@
+part 'exceptions.dart';
+
 /// The mapping rules updated in 2021/09
 const Map<String, String> mapping = {
   // 臺北市
@@ -395,56 +397,63 @@ const Map<String, String> mapping = {
   '983': '花蓮縣富里鄉',
 };
 
-/// Map three-digit zip code to districts in Taiwan
-/// [toDistrict] returns the district based on zip code
-/// [toZip] returns the zip code based on district name
+/// Map three-digit zip code to districts in Taiwan.
+///
+/// `toDistrict` returns the district based on zip code.
+/// `toZip` returns the zip code based on the district.
 class TaiwanZip {
   // constructor is disabled
   TaiwanZip() {
     throw UnimplementedError("You don't need an instance to use the functions");
   }
 
-  /// Get all the zip codes
+  /// Returns all the zip codes.
   static List<String> get zipCodes => mapping.keys.toList();
 
-  /// Get all the cities
+  /// Returns all the cities.
   static List<String> get cities =>
       mapping.values.map((value) => value.substring(0, 3)).toSet().toList();
 
-  /// Return the corresponding district based on zip code
+  /// Returns the corresponding district based on zip code.
   static String toDistrict(String zipCode) {
     if (mapping.containsKey(zipCode)) {
       return mapping[zipCode]!;
     }
-    throw Exception('Unable to find district for $zipCode');
+    throw DistrictNotFoundFailure(zipCode);
   }
 
-  /// Return the corresponding zip code based on the name of district
+  /// Returns the corresponding zip code based on the district.
+  ///
+  /// City prefix is required because districts are not unique.
+  /// For example, use `臺北市大安區` but not `大安區`.
   static String toZip(String district) {
-    // hint the format
+    _checkName(district);
+
     if (district.length < 5) {
-      throw Exception('Use city prefix, e.g., 臺北市中正區');
+      throw const IncorrectFormatFailure('Use city prefix, e.g., 臺北市中正區');
     }
+
     for (var entry in mapping.entries) {
       if (entry.value == district) {
         return entry.key;
       }
     }
-    throw Exception('Unable to find zip for $district');
+    throw ZipCodeNotFoundFailure(district);
   }
 
-  /// Get possible districts based on a city
+  /// Get possible districts based on a city.
+  ///
+  /// If `withCity` is true, districts are returned with city prefix.
+  /// For example,
+  /// `withCity = true` returns 臺北市大安區, `withCity = false` returns 大安區.
   static List<String> getDistricts(String city, {bool withCity = false}) {
     List<String> districts;
-    // hint the format
-    if (city.contains('台')) {
-      throw Exception('Use 臺 instead of 台');
-    }
+    _checkName(city);
 
     var filteredDistricts =
         mapping.values.where((value) => value.contains(city));
     if (filteredDistricts.isEmpty) {
-      throw Exception('Unable to find districts for $city');
+      throw DistrictNotFoundFailure(city);
     }
 
     if (withCity) {
@@ -456,5 +465,11 @@ class TaiwanZip {
     }
 
     return districts;
+  }
+}
+
+void _checkName(String name) {
+  if (name.contains('台')) {
+    throw const IncorrectFormatFailure('Use 臺 instead of 台');
   }
 }

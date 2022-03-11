@@ -40,7 +40,7 @@ void main() {
 
       test('throws when zip code is invalid', () {
         expect(() => TaiwanZip.toDistrict('123'),
-            throwsA(TypeMatcher<Exception>()));
+            throwsA(TypeMatcher<DistrictNotFoundFailure>()));
       });
     });
 
@@ -51,16 +51,22 @@ void main() {
         });
       });
 
+      test('throws when 台 is used', () {
+        var district = '台北市中正區';
+        expect(() => TaiwanZip.toZip(district),
+            throwsA(TypeMatcher<IncorrectFormatFailure>()));
+      });
+
       test('throws when district is invalid', () {
         var district = '測試縣無名鎮';
-        expect(
-            () => TaiwanZip.toZip(district), throwsA(TypeMatcher<Exception>()));
+        expect(() => TaiwanZip.toZip(district),
+            throwsA(TypeMatcher<ZipCodeNotFoundFailure>()));
       });
 
       test('throws when the name is not complete', () {
         var district = '中正區';
-        expect(
-            () => TaiwanZip.toZip(district), throwsA(TypeMatcher<Exception>()));
+        expect(() => TaiwanZip.toZip(district),
+            throwsA(TypeMatcher<IncorrectFormatFailure>()));
       });
     });
 
@@ -83,13 +89,13 @@ void main() {
       test('throws when the city is invalid', () {
         var city = '臺北縣';
         expect(() => TaiwanZip.getDistricts(city),
-            throwsA(TypeMatcher<Exception>()));
+            throwsA(TypeMatcher<DistrictNotFoundFailure>()));
       });
 
       test('throws with hint when 台 is provided', () {
         var city = '台北市';
         expect(() => TaiwanZip.getDistricts(city),
-            throwsA(TypeMatcher<Exception>()));
+            throwsA(TypeMatcher<IncorrectFormatFailure>()));
       });
     });
   });
