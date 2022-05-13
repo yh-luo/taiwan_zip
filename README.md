@@ -6,7 +6,7 @@ Map zip code to cities in Taiwan.
 
 ## Supported formats
 
-This package only supports three-digits zip codes, which are last updated in October 2021.
+This package only supports three-digits zip codes.
 
 ## Features
 
@@ -18,17 +18,6 @@ This package only supports three-digits zip codes, which are last updated in Oct
 
 ## Example
 
-```dart
-  // Static functions can be used without an instance.
-  // `TaiwanZip.toDistrict` finds the district
-  var zipCode = '100';
-  print('$zipCode refers to ${TaiwanZip.toDistrict(zipCode)}');
-  // `TaiwanZip.toZip` finds the zip code
-  var district = '臺北市中正區';
-  print('$district uses ${TaiwanZip.toZip(district)} as its zip code');
-  // `TaiwanZip.getDistricts` returns all the districts in the city
-  var city = '臺北市';
-  print('Districts in $city include ${TaiwanZip.getDistricts(city)}');
-```
+`example/main.dart`
 
 [coverage_badge]: https://github.com/yh-luo/taiwan_zip/blob/main/coverage_badge.svg

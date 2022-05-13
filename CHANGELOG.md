@@ -1,3 +1,11 @@
+# 0.4.0
+
+**Changes**
+
+- Fix the problem when zip code is not unique, `TaiwanZip.toDistrict` only returns the first found district.
+    - The structure of the mapping `Map` is reversed: keys become values and values are keys now. That is, districts are used as keys and zip codes are the values.
+    - When the zip code maps to multiple districts, they are concatenated with `/` in-between.
+
 # 0.3.0
 
 **Changes**
